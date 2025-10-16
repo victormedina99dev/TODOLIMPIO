@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+    <link rel="stylesheet" href="style.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/todolimpio.css">
+    <link rel="stylesheet" href="css/todolimpio_solicitud_de_servicio.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha206-pCqIqFzFq5z1vXJ6wz0W+q5z8X4s/5N+bFv8wF6zF5z8=" crossorigin="" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta charset ="utf-8">
+    <meta property="og:description" content="Todo limpio un negocio que facilita tus rutinas diarias ofreciendote servicios de limpieza para el hogar y para las oficinas.">
+    <meta property="og:image" content="🧽"> 
+    <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="imagenes/todolimpio-icono-azul-claro.png" />
+    <meta name ="viewport" content="width=device-width">
+    <title>Solicitud de Servicio</title>  
+    <meta name="robots"content="index, follow">
+    <meta name="theme-color" content="#169ba4">
+</head>
+
+<header>
+    <a href="index.html" class="logo">
+            <img src="imagenes/todolimpio-icono.png" alt="logo de la compania">
+            <h2 class="nombre-empresa">TodoLimpio</h2>
+    </a>
+        <nav id="menu">
+            <a href="index.html" class="nav-link">
+                <img src="imagenes/inicio2.png" alt="Inicio" class="icono-nav">
+            Inicio 
+            </a>
+            <a href="todolimpio_servicios.html" class="nav-link">
+                <img src="imagenes/Servicios.png" alt="Servicios" class="icono-nav">
+            Servicios   
+            </a>
+            <a href="todolimpio_solicitud_de_servicio.html" class="nav-link active">
+            <img src="imagenes/solicitar_servicio.png" alt="Pedir servicio" class="icono-nav">
+            Solicitar servicio
+            </a>
+        </nav>
+</header>
+<body>
+    <h2>Indicanos a continuacion tus datos y el tipo de servicio que deseas</h2>
+    
+    <form action="https://formsubmit.co/todolimpiovenezuela@gmail.com" method="POST">
+    <div class="container">
+        <div class="row align-fieldsets">
+            <div class="col-md-6 mb-3">
+                <fieldset>
+                    <legend>Datos de usuario</legend>
+                    <label>Nombre
+                        <br>
+                        <input pattern="[a-zA-Z ]*" type="text" name="nombre" placeholder="Introduce tu nombre" required/>
+                        <br>
+                    </label>    
+                    <div>
+                        <label>Apellido <br>
+                            <input pattern="[a-zA-Z ]*" type="text" name="apellido" placeholder="Introduce apellido" required/>
+                        </label>
+                    </div>
+                    <br>
+                    <div>
+                        <label>Correo electronico <br>
+                            <input type="email" name="correo electronico" placeholder="Introduce tu correo" required/>
+                        </label>
+                    </div>
+                    <br>
+                    <div>
+                        <label>Telefono
+                            <br>
+                            <input type="number" id="miNumero" placeholder="Movil" name="numero de contacto" min="0" step="1">
+                            <br>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <fieldset>
+                    <legend>Ubicación del Servicio</legend>
+                    <span class="mb-3 d-block fw-bold text-center" style="color:#169ba4; font-size:1.35rem;">Selecciona el punto exacto en el mapa</span>
+                    
+                    <div id="map" style="height: 300px; width: 100%; border-radius: 8px;"></div>
+                    <br>
+                    <span id="ubicacion-actual" class="d-block text-center" style="font-size: 0.9em; color: green; font-weight: bold;">Localizando...</span>
+                    
+                    <input type="hidden" name="ubicacion_servicio" id="ubicacion_servicio_input" required>
+                    
+                    <input type="hidden" name="coordenadas_gps" id="coordenadas_gps_input" required>
+                </fieldset>
+            </div>
+            </div>
+        <br>
+        <fieldset class="w-100 fieldset-servicio">
+            <legend>Escoge el servicio</legend>
+            <div class="row justify-content-center opciones-servicio">
+                <div class="col-md-4 col-12 mb-2 mb-md-0">
+                    <label class="d-flex align-items-center justify-content-center gap-2">
+                        <input type="radio" value="Limpieza del hogar" name="limpieza">
+                        Limpieza del hogar
+                    </label>
+                </div>
+                <div class="col-md-4 col-12 mb-2 mb-md-0">
+                    <label class="d-flex align-items-center justify-content-center gap-2">
+                        <input type="radio" value="Limpieza de oficina" name="limpieza">
+                        Limpieza de oficina
+                    </label>
+                </div>
+                <div class="col-md-4 col-12">
+                    <label class="d-flex align-items-center justify-content-center gap-2">
+                        <input type="radio" value="Servicio de jardineria" name="servicio">
+                        Jardineria
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        <div>
+            <label for="fechadeservicio">¿Cuando quieres el servicio?</label>
+            <br>
+            <input type="date" id="fecha_de_servicio" name="fecha de servicio">
+            <label for="horaservicio">Hora</label>
+            <input type="time" id="horaservicio" name="horaservicio">
+        </div>
+        <br>
+        <button class="enviar_formulario">Solicitar Servicio</button>
+    </div>
+</form>    
+    <br>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha206-r6z4q7zQ2cQ8lG8g/y8F4z1a7wG6E9fW5z2q6wZ4Q5z8=" crossorigin=""></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
+    <script src="js/mapa_servicio.js"></script>
+    <script src="js/validacion_frontend.js"></script>
+</body>
+
+<footer>
+    <div class="container-fluid p-2">
+            <h4 id="text-footer">Contactanos:</h4>
+        <div class="row">
+            <div class="col"><a href="https://www.instagram.com/todolimpio.venezuela" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-instagram"></i> Instagram</a></div>
+            <div class="col"><a href="https://wa.me/message/U7VEZNXGTCZ3H1" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-whatsapp"></i> WhatsApp</a></div>
+            <div class="col"><a href="https://www.facebook.com/todolimpio.vnzla" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-facebook"></i> Facebook</a></div>
+        </div>
+</div>
+</footer>
+</html>

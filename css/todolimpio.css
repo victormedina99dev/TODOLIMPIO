@@ -1,0 +1,486 @@
+#menu{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 100px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.531);
+}
+
+#menu:hover{
+    box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.782);
+    color: gray;
+    transition: box-shadow 0.3s ease;
+}
+
+body{
+    font-family: sans-serif;
+    margin: 0;
+    overflow-x: hidden !important;
+}
+
+p{
+    text-align: center;
+    font-size: 1.2em;
+    margin: 60px;
+    color: rgb(22, 155, 164);
+}
+
+a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+        
+.nav-link{
+    color: rgb(0, 0, 0);
+}
+
+header{
+    display: flex;
+    min-height: 70px;
+    justify-content: space-between;
+    background-color: rgb(22, 155, 164);
+    color: white;
+    align-items: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 2147483647 !important;
+}
+
+h1{
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    color: rgb(22, 155, 164);
+}
+
+h3{
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    color: rgb(22, 155, 164);
+}
+
+h4{
+    color:rgb(22,155,164);
+    text-align: center;
+}        
+
+.logo{
+    display: flex;
+    align-items: center;
+    font-family: jumper, sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.logo img{
+    height: 60px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+}
+
+#inicio{
+    height: 15px;
+    margin-right: 0px;
+} 
+        
+nav a{
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+details{
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    color: black;
+}
+
+p:hover{
+    font-size: 20px;
+}
+
+#chica_bedel{
+    width: 50%;
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
+}
+
+@media (max-width: 768px) {
+    /* ========================================================================= */
+    /* 1. 🛑 SOLUCIÓN DESBORDAMIENTO HORIZONTAL (LÍNEA BLANCA) 🛑 */
+    /* Asegura que no haya contenido que exceda el ancho de la pantalla */
+    /* ========================================================================= */
+    
+    /* Control estricto del ancho del Viewport */
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Fuerza el ocultamiento horizontal */
+        box-sizing: border-box;
+    }
+
+    /* Neutraliza los Márgenes/Paddings de Bootstrap (.row) que causan desborde */
+    .container-fluid, .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important; 
+        padding-right: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box; /* Clave: asegura que padding no añada ancho */
+    }
+
+    /* ========================================================================= */
+    /* 2. 🎡 AJUSTE DE DIMENSIONES DEL CARRUSEL EN MÓVILES 🎡 */
+    /* ========================================================================= */
+
+    /* Contenedor principal: Fija la altura total del carrusel (250px recomendado) */
+    .carousel-inner {
+        height: 250px !important; 
+        max-height: 250px !important;
+    }
+
+    /* La imagen dentro del carrusel: Asegura que ocupe la altura fijada */
+    .carousel-item img {
+        height: 250px !important; /* Igual que el contenedor */
+        width: 100%;
+        object-fit: cover; /* Mantiene la proporción y cubre el área */
+    }
+
+    /* ========================================================================= */
+    /* 3. Ajustes generales (MANTENIENDO Y CONSOLIDANDO TUS REGLAS PREVIAS) */
+    /* ========================================================================= */
+
+    p {
+        margin: 30px 15px; 
+        font-size: 1.1em;
+    }
+    #acerca-container, #footer-container {
+        /* Estas reglas ya están cubiertas por .container-fluid, pero se mantienen por si acaso */
+        margin: 0 !important;
+        padding: 10px 0 !important;
+        width: 100% !important;
+    }
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px 10px;
+    }
+}
+
+#bienvenida{
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+}
+
+.link_contacto{
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: lightblue;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+    border-radius: 15px;
+    box-shadow: #00000067 3px 3px 3px;
+}
+
+.link_contacto:hover{
+    padding: 11px;
+    background-color: rgb(22, 155, 164);
+    color: white;
+}    
+
+.link_contacto:active{
+    box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.782);
+}    
+
+ul{
+    list-style-type: none;
+    padding: 0px;
+    text-align:center ;
+    color: rgb(22,155,164);
+    font-size: 18px;
+    margin:40px;
+}
+
+li{
+    margin: 40px 0;
+    font-size: 18px;
+}
+
+li:hover{
+    color: rgb(22,155,164);
+    font-size: 20px;
+}
+
+#servicios_que_ofrecemos{
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#img_jardineria{
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);    
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#img_limpieza_hogar{
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#img_limpieza_oficina{
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#contenedor_servicios {
+    margin: 40px auto;
+    width: 100%;
+}
+
+.servicios_flex {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+#contenedor_hogar,
+#contenedor_oficina,
+#contenedor_jardineria {
+    background-color: rgba(0, 0, 0, 0.457);
+    border-radius: 20px;
+    color: #fff !important;
+    padding: 20px;
+    max-width: 260px;
+    min-width: 180px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+}
+
+#contenedor_hogar img,
+#contenedor_oficina img,
+#contenedor_jardineria img {
+    width: 80%;
+    max-width: 120px;
+    height: auto;
+    margin: 0 auto 10px auto;
+    display: block;
+}
+
+#contenedor_hogar p,
+#contenedor_oficina p,
+#contenedor_jardineria p {
+    color: #fff !important;
+    margin: 10px 0 !important;
+}
+
+#contenedor_hogar:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+#contenedor_oficina:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+#contenedor_jardineria:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.icono-nav {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.nav-link.active {
+    background-color: #117b85c5;
+    color: #fff !important;
+    border-radius: 20px;
+    padding: 8px 16px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.445);
+}
+
+img {
+    transition: transform 0.3s ease;
+    text-transform: uppercase;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 750px;
+    object-fit: cover;
+    margin: 0;
+    background: none;
+    display: block;
+}
+
+.carousel-indicators {
+    background-color: rgba(0, 0, 0, 0.304);
+    border-radius: 15px;
+}
+
+.card-title {
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: jumper, sans-serif;
+}
+
+.card {
+    background-color: rgba(0, 97, 164);
+    border-radius: 20px;
+    color: #fff !important;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
+    border: 0px solid transparent;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.card-text {
+    color: white;
+}
+
+.card-img-top {
+    border-radius: 20px;
+}
+
+.btn {
+    background-color: rgb(22, 155, 164);
+}
+
+footer {
+    background-color: rgb(22, 155, 164);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 0px !important;
+}
+
+#text-footer {
+    color: white;
+}
+
+#button-footer {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+#button-footer:hover {
+    background-color: rgb(22, 155, 164);
+    color: white;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.782);
+}
+
+.nombre-empresa {
+    font-family: jumper, sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    color: white;
+    margin-left: 0px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#acerca-container {
+    background-color: rgb(78, 185, 176) ;
+    margin-left: 0px;
+    margin-right: 0px !important;
+    border-color: #000000 !important;
+    border-bottom: 0px !important;
+} 
+
+#acerca {
+    color: rgb(255, 255, 255);
+    margin-left: 0px;
+    margin-right: 0px !important;
+}
+
+#footer-container {
+    background-color: rgb(22, 155, 164);
+    margin-left: 0px;
+    margin-right: 0px !important;
+    border-color: #000000 !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+#servicios-que-ofrecemos {
+    color: rgb(252, 252, 252) !important;
+    background-color: rgba(0, 97, 164) !important;
+    margin-left: 0px;
+    margin-right: 0px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 0px !important;
+}
+
+/* Reglas adicionales para que el texto sea blanco dentro de "Servicios" */
+#servicios-que-ofrecemos h3,
+#servicios-que-ofrecemos p {
+    color: rgb(252, 252, 252) !important;
+}
+
+.titulo-de-servicios h1{
+    color: rgb(252, 252, 252) !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
