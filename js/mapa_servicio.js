@@ -9,8 +9,7 @@ const defaultZoom = 13;
 
 /**
  * Función asíncrona para convertir coordenadas a dirección legible.
- * Utiliza el servicio Nominatim de OpenStreetMap (gratuito).
- */
+ /** */
 async function getAddressFromCoords(lat, lng) {
     // URL del servicio de Nominatim para Geocodificación Inversa
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`;
