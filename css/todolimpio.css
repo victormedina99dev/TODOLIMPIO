@@ -63,7 +63,7 @@ h3{
 }
 
 h4{
-    color:rgb(22,155,164);
+    color:#169ba4;
     text-align: center;
 }        
 
@@ -114,11 +114,12 @@ p:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
 }
 
+#soloMoviles{
+    display: none;
+}
+
 @media (max-width: 768px) {
-    /* ========================================================================= */
-    /* 1. 🛑 SOLUCIÓN DESBORDAMIENTO HORIZONTAL (LÍNEA BLANCA) 🛑 */
-    /* Asegura que no haya contenido que exceda el ancho de la pantalla */
-    /* ========================================================================= */
+   
     
     /* Control estricto del ancho del Viewport */
     html, body {
@@ -140,9 +141,7 @@ p:hover{
         box-sizing: border-box; /* Clave: asegura que padding no añada ancho */
     }
 
-    /* ========================================================================= */
-    /* 2. 🎡 AJUSTE DE DIMENSIONES DEL CARRUSEL EN MÓVILES 🎡 */
-    /* ========================================================================= */
+   
 
     /* Contenedor principal: Fija la altura total del carrusel (250px recomendado) */
     .carousel-inner {
@@ -157,9 +156,7 @@ p:hover{
         object-fit: cover; /* Mantiene la proporción y cubre el área */
     }
 
-    /* ========================================================================= */
-    /* 3. Ajustes generales (MANTENIENDO Y CONSOLIDANDO TUS REGLAS PREVIAS) */
-    /* ========================================================================= */
+    
 
     p {
         margin: 30px 15px; 
@@ -171,10 +168,36 @@ p:hover{
         padding: 10px 0 !important;
         width: 100% !important;
     }
+    
+    #acerca-container, #descripcionServicios{
+        display: none;
+    }
+
+    #servicios-que-ofrecemos{
+        
+        display :none;
+    }
+    
+    #tituloDeServicios{
+        color:#169ba4 !important;
+        background-color: white !important;
+        text-shadow: none !important;
+
+    }
+
     header {
         flex-direction: column;
         align-items: center;
         padding: 5px 10px;
+    }
+
+    #soloMoviles{
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+        font-size: 4em;
+        color: rgb(22, 155, 164);
     }
 }
 
