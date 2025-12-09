@@ -118,8 +118,22 @@ p:hover{
     display: none;
 }
 
+.iconos-propuesta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 50px;
+    width: 50px;
+}
+
+#propuesta-valor{
+    color:#169ba4;
+    
+}
+
 @media (max-width: 768px) {
-   
+
     
     /* Control estricto del ancho del Viewport */
     html, body {
