@@ -105,10 +105,6 @@ h4{
     margin-bottom: 15px;
 }
 
-#inicio{
-    height: 15px;
-    margin-right: 0px;
-} 
         
 nav a{
     font-weight: 600;
@@ -137,7 +133,6 @@ p:hover{
     border-radius: 200px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
 }
-
 #soloMoviles{
     display: none;
 }
@@ -288,108 +283,6 @@ li:hover{
     font-size: 20px;
 }
 
-#servicios_que_ofrecemos{
-    width: 50%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-#img_jardineria{
-    width: 50%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);    
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-#img_limpieza_hogar{
-    width: 50%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-#img_limpieza_oficina{
-    width: 50%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.457);
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-#contenedor_servicios {
-    margin: 40px auto;
-    width: 100%;
-}
-
-.servicios_flex {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 40px;
-    margin-top: 40px;
-}
-
-#contenedor_hogar,
-#contenedor_oficina,
-#contenedor_jardineria {
-    background-color: rgba(0, 0, 0, 0.457);
-    border-radius: 20px;
-    color: #fff !important;
-    padding: 20px;
-    max-width: 260px;
-    min-width: 180px;
-    box-sizing: border-box;
-    text-align: center;
-    margin: 0;
-}
-
-#contenedor_hogar img,
-#contenedor_oficina img,
-#contenedor_jardineria img {
-    width: 80%;
-    max-width: 120px;
-    height: auto;
-    margin: 0 auto 10px auto;
-    display: block;
-}
-
-#contenedor_hogar p,
-#contenedor_oficina p,
-#contenedor_jardineria p {
-    color: #fff !important;
-    margin: 10px 0 !important;
-}
-
-#contenedor_hogar:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
-
-#contenedor_oficina:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
-
-#contenedor_jardineria:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
 
 .icono-nav {
     width: 20px;
