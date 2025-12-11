@@ -7,6 +7,30 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.531);
 }
 
+@keyframes show{
+    from{
+        opacity: 0;
+        scale: 25%;
+    }
+    to{
+        opacity: 1;
+        scale: 100%;
+    }
+}
+
+img {
+    view-timeline-name: --image;
+    view-timeline-axis: block;
+
+    animation-timeline: --image;
+    animation-name: show;
+
+    animation-range:entry 25% cover 30%;
+    animation-fill-mode: both;
+}
+
+
+
 #menu:hover{
     box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.782);
     color: gray;
@@ -520,4 +544,29 @@ footer {
 .titulo-de-servicios h1{
     color: rgb(252, 252, 252) !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
+#animation{
+    animation-name: zoomIn;
+    animation-timeline: view();
+    animation-duration: 1s;
+    animation-range:entry 10% cover 35%;
+    animation-fill-mode: both;
+}
+
+
+
+@keyframes zoomIn {
+    from {
+        opacity: 0.5;
+        transform: scale(0.5);
+        filter: brightness(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+    }
 }
