@@ -1009,6 +1009,26 @@ progress {
   --bs-gutter-y: 3rem;
 }
 
+#btn-google-login {
+  background: white;
+  color: #169ba4;
+  border: 2px solid #169ba4;
+  border-radius: 50px;
+  padding: 4px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  vertical-align: middle;
+}
+#btn-google-login img {
+  width: 16px;
+  margin-right: 8px;
+  animation: none !important;
+}
+
 @media (min-width: 576px) {
   .col-sm {
     flex: 1 0 0;

@@ -10,37 +10,41 @@
     <meta property="og:description" content="Todo limpio un negocio que facilita tus rutinas diarias ofreciendote servicios de limpieza para el hogar y para las oficinas.">
     <meta property="og:image" content="🧽"> 
     <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="./imagenes/todolimpio-icono-azul-claro.png" />
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todolimpio</title>  
     <meta name="theme-color" content="#09f">
-
+    
+    
 </head>
 <body>
     <header>
         <a href="#" class="logo">
             <img src="./imagenes/todolimpio-icono.png" alt="logo de la compania">
             <h2 class="nombre-empresa">TodoLimpio</h2>
-            
         </a>
         
         <nav id="menu">
             <a href="index.html" class="nav-link active">
                 <img src="./imagenes/inicio2.png" alt="Inicio" class="icono-nav">
-            Inicio 
+                Inicio 
             </a>
             <a href="todolimpio_servicios.html" class="nav-link">
                 <img src="./imagenes/Servicios.png" alt="Servicios" class="icono-nav">
             Servicios   
             </a>
-
             <a href="todolimpio_solicitud_de_servicio.html" class="nav-link">
             <img src="./imagenes/solicitar_servicio.png" alt="Pedir servicio" class="icono-nav">
             Solicitar servicio
             </a>
+            
+            <button id="btn-google-login">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="google">
+                Entrar
+            </button>
         </nav>
     </header>
-    <main>
-<!--Carrusel-->
+
+    <!--Carrusel-->
 
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
             <div class="carousel-indicators">
@@ -73,58 +77,85 @@
 
         </div>
 <!--Cierre de carrusel-->
-        
-        <a href=""><div class="container-fluid mt-2 mb-2" id="animation" >
-            
-            <h1 class="text-center mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-corner-down-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4" /></svg><strong>Somos tu solución</strong></h1>
-            <div class="row">
-                <div class="col">
-                    <svg class="iconos-propuesta mb-2" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-building-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h9" /><path d="M9 8h1" /><path d="M9 12h1" /><path d="M9 16h1" /><path d="M14 8h1" /><path d="M14 12h1" /><path d="M5 21v-16c0 -.53 .211 -1.039 .586 -1.414c.375 -.375 .884 -.586 1.414 -.586h10c.53 0 1.039 .211 1.414 .586c.375 .375 .586 .884 .586 1.414v7" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
-                    <h2 class="text-center" id="propuesta-valor"><strong>50</strong></h2>
-                    <p class="text-center mt-2">Empresas atendidas</p>
-                </div>
-                <div class="col">
-                    <svg class="iconos-propuesta" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M19 13.488v-1.488h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h4.525" /><path d="M15 19l2 2l4 -4" /></svg>
-                    <h2 class="text-center mb-0" id="propuesta-valor"><strong>+100</strong></h2>
-                    <p class="text-center mt-2">Hogares satisfechos</p>
-                </div>
-                <div class="col">
-                    <svg class="iconos-propuesta" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plant"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 15h10v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v-4z" /><path d="M12 9a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3" /><path d="M12 11a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3" /><path d="M12 15l0 -6" /></svg>
-                    <h2 class="text-center mb-0" id="propuesta-valor"><strong>1C</strong></h2>
-                    <p class="text-center mt-2">Jardines restaurados</p>
-                </div>
-            </div>
-        </a>
+   <h1 class="text-center mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-corner-down-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4" /></svg><strong>Somos tu solución</strong></h1>
+    <div class="row">
+        <div class="col">
+            <svg class="iconos-propuesta mb-2" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-building-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h9" /><path d="M9 8h1" /><path d="M9 12h1" /><path d="M9 16h1" /><path d="M14 8h1" /><path d="M14 12h1" /><path d="M5 21v-16c0 -.53 .211 -1.039 .586 -1.414c.375 -.375 .884 -.586 1.414 -.586h10c.53 0 1.039 .211 1.414 .586c.375 .375 .586 .884 .586 1.414v7" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
+            <h2 class="text-center" id="propuesta-valor"><strong>50</strong></h2>
+            <p class="text-center mt-2">Empresas atendidas</p>
+        </div>
+        <div class="col">
+            <svg class="iconos-propuesta" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M19 13.488v-1.488h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h4.525" /><path d="M15 19l2 2l4 -4" /></svg>
+            <h2 class="text-center mb-0" id="propuesta-valor"><strong>+100</strong></h2>
+            <p class="text-center mt-2">Hogares satisfechos</p>
+        </div>
+        <div class="col">
+            <svg class="iconos-propuesta" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#169ba4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plant"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 15h10v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v-4z" /><path d="M12 9a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3" /><path d="M12 11a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3" /><path d="M12 15l0 -6" /></svg>
+            <h2 class="text-center mb-0" id="propuesta-valor"><strong>1C</strong></h2>
+            <p class="text-center mt-2">Jardines restaurados</p>
+        </div>
+    </div>
+    </a>
 
         </div>
-        
-        <a href="#" id="acerca"><div class="container-fluid mt-2 mb-0 " id="acerca-container">
-            <h2 class="text-center">ACERCA DE NOSOTROS</h2>
-            <div class="row">
-                <div class="col">En <strong>Todo Limpio</strong>, nos dedicamos a transformar y mantener tus espacios, tanto interiores como exteriores, con servicios de limpieza y jardinería de la más alta calidad. Entendemos que un ambiente limpio y un jardín bien cuidado no solo mejoran la estética, sino que también contribuyen al bienestar y la productividad.</div>
+
+    <div class="container-fluid" id="servicios-que-ofrecemos">
+        <h3 class="text-center">Servicios que ofrecemos:</h3>
+        <div class="row align-items-center">
+            <div class="col"><img src="./imagenes/limpieza-hogar.png" alt="limpieza hogar" class="iconos-servicios"> <p>Limpieza de hogar</p></div>
+            <div class="col"><img src="./imagenes/limpieza-oficina.png" alt="limpieza oficina" class="iconos-servicios"> <p>Limpieza de oficina</p></div>
+            <div class="col"><img src="./imagenes/jardineria.png" alt="jardineria" class="iconos-servicios"><p>Servicios de Jardinería</p></div>
+        </div>
+    </div>
+
+    <a href="#" id="acerca" class="text-decoration-none">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col"><img src="./imagenes/mision.png" alt="mision de la empresa" id="img-acerca"></div>
+                <div class="col"><strong>TodoLimpio</strong> es mucho más que una empresa de limpieza; somos tus aliados en el cuidado y mantenimiento de tus espacios. Con años de experiencia en el mercado venezolano, nos dedicamos a transformar y mantener tus espacios, tanto interiores como exteriores, con servicios de limpieza y jardinería de la más alta calidad. Entendemos que un ambiente limpio y un jardín bien cuidado no solo mejoran la estética, sino que también contribuyen al bienestar y la productividad.</div>
                 <div class="col"><strong>Nuestra Misión</strong> es superar las expectativas de nuestros clientes, ofreciendo soluciones personalizadas que se adapten a sus necesidades específicas, con un enfoque en la eficiencia, la confiabilidad y la sostenibilidad.</div>
-
             </div>
         </div>
-        </a>
+    </a>
         
+    <script src="./js/bootstrap.min.js"></script>
 
-        
-    <script src="./js/bootstrap.min.js" ></script>
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const googleBtn = document.getElementById('btn-google-login');
+        if (googleBtn) {
+            googleBtn.addEventListener('click', async () => {
+                const provider = new GoogleAuthProvider();
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+                    const userRef = doc(db, "usuarios", user.uid);
+                    const userSnap = await getDoc(userRef);
+
+                    if (userSnap.exists() && userSnap.data().direccion) {
+                        window.location.href = "todolimpio_solicitud_de_servicio.html";
+                    } else {
+                        window.location.href = "registro-direccion.html";
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
+    </script>
 </body>
 
 <footer>
-<!--Contactos de todolimpio-->
-
     <div class="container-fluid p-2">
             <h4 id="text-footer">Contactanos:</h4>
         <div class="row">
             <div class="col"><a href="https://www.instagram.com/todolimpio.venezuela" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-instagram"></i> Instagram</a></div>
             <div class="col"><a href="https://wa.me/message/U7VEZNXGTCZ3H1" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-whatsapp"></i> WhatsApp</a></div>
             <div class="col"><a href="https://www.facebook.com/todolimpio.vnzla" class="btn text-decoration-none" id="button-footer" target="reg"><i class="bi bi-facebook"></i> Facebook</a></div>
-
         </div>
     </div>
 </footer>
-
 </html>
