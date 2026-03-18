@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import FormInput from '../components/ui/FormInput'
+import FormSection from '../components/ui/FormSection'
+import Button from '../components/ui/Button'
+import Badge from '../components/ui/Badge'
+import { brand } from '../constants'
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl
@@ -55,15 +60,38 @@ export default function ServiceRequest() {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
-  const [address, setAddress] = useState('Cargando dirección...')
+  const [address, setAddress] = useState('Selecciona un punto en el mapa...')
   const [mapCenter, setMapCenter] = useState(DEFAULT_CENTER)
+  const [isLocating, setIsLocating] = useState(false)
   const markerRef = useRef(null)
+
+  // Auto-detect location on mount
+  useEffect(() => {
+    handleDetectLocation()
+  }, [])
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0]
     document.getElementById('fecha')?.setAttribute('min', today)
-    fetchAddress(DEFAULT_CENTER[0], DEFAULT_CENTER[1])
   }, [])
+
+  const handleDetectLocation = () => {
+    if (!navigator.geolocation) return
+
+    setIsLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        handleLocationSelect(latitude, longitude)
+        setIsLocating(false)
+      },
+      (error) => {
+        console.error('Geolocation error:', error)
+        setIsLocating(false)
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+    )
+  }
 
   const fetchAddress = async (lat, lng) => {
     try {
@@ -100,7 +128,7 @@ export default function ServiceRequest() {
     }
   }
 
-  const validateForm = () => {
+  const validateForm = (e) => {
     const newErrors = {}
     
     if (!formData.nombre.trim()) newErrors.nombre = 'El nombre es requerido'
@@ -113,161 +141,114 @@ export default function ServiceRequest() {
     if (!formData.hora) newErrors.hora = 'La hora es requerida'
     
     setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
     
-    if (!validateForm()) return
+    if (Object.keys(newErrors).length > 0) {
+      e.preventDefault()
+      return false
+    }
     
     setIsSubmitting(true)
-    setSubmitStatus(null)
-    
-    try {
-      const response = await fetch('https://formsubmit.co/todolimpiovenezuela@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          direccion: address,
-          ubicacion: `${formData.lat}, ${formData.lng}`
-        }),
-      })
-      
-      if (response.ok) {
-        setSubmitStatus('success')
-        setFormData({
-          nombre: '',
-          apellido: '',
-          correo: '',
-          telefono: '',
-          servicio: '',
-          fecha: '',
-          hora: '',
-          direccion: '',
-          lat: DEFAULT_CENTER[0],
-          lng: DEFAULT_CENTER[1]
-        })
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch (error) {
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-    }
+    return true
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <span className="text-primary-500 font-medium">SOLICITAR SERVICIO</span>
-          <h1 className="text-4xl font-display font-bold text-gray-900 mt-2 mb-4">
-            Agenda tu Servicio
+    <div className="min-h-screen bg-surface-950 pt-32 pb-20">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16 animate-fade-in">
+          <Badge variant="primary" className="mb-4">
+            SOLICITAR SERVICIO
+          </Badge>
+          <h1 className="text-5xl md:text-6xl font-display font-extrabold text-white mt-4 mb-6 tracking-tight">
+            Agenda tu <span className="text-gradient">Servicio Premium</span>
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Completa el formulario y nuestro equipo te contactará para confirmar tu cita.
+          <p className="text-xl text-surface-400 max-w-2xl mx-auto leading-relaxed">
+            Completa el formulario y nuestro equipo te contactará para confirmar tu cita. Experimenta la limpieza al más alto nivel.
           </p>
         </div>
 
-        {submitStatus === 'success' && (
-          <div className="max-w-2xl mx-auto mb-8 p-6 bg-green-50 border border-green-200 rounded-2xl text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-              <i className="bi bi-check-circle text-green-500 text-3xl"></i>
-            </div>
-            <h3 className="text-xl font-semibold text-green-800 mb-2">¡Solicitud Enviada!</h3>
-            <p className="text-green-700">
-              Gracias por confiar en nosotros. Te contactaremos pronto para confirmar tu cita.
-            </p>
-          </div>
-        )}
+        <form 
+          action={`https://formsubmit.co/${brand.contactEmail}`} 
+          method="POST"
+          onSubmit={validateForm}
+          className="max-w-6xl mx-auto"
+        >
+          {/* FormSubmit Configuration */}
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_subject" value={`Nueva Solicitud: ${formData.servicio.toUpperCase()} - ${formData.nombre} ${formData.apellido}`} />
+          <input type="hidden" name="_next" value={window.location.origin + '/solicitar-servicio?success=true'} />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="text" name="_honey" style={{ display: 'none' }} />
+          
+          {/* Extra formatted data for the email */}
+          <input type="hidden" name="direccion_completa" value={address} />
+          <input type="hidden" name="google_maps" value={`https://www.google.com/maps?q=${formData.lat},${formData.lng}`} />
+          <input type="hidden" name="coordenadas" value={`${formData.lat}, ${formData.lng}`} />
+          <input type="hidden" name="resumen_cita" value={`Solicitado para el ${formData.fecha} a las ${formData.hora}`} />
 
-        <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left Column - User Data */}
-            <div className="space-y-6">
-              <div className="card p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                  <i className="bi bi-person text-primary-500"></i>
-                  Datos Personales
-                </h2>
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="label">Nombre</label>
-                    <input
-                      type="text"
-                      name="nombre"
-                      value={formData.nombre}
-                      onChange={handleChange}
-                      className={`input-field ${errors.nombre ? 'input-error' : ''}`}
-                      placeholder="Tu nombre"
-                    />
-                    {errors.nombre && <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>}
-                  </div>
-                  
-                  <div>
-                    <label className="label">Apellido</label>
-                    <input
-                      type="text"
-                      name="apellido"
-                      value={formData.apellido}
-                      onChange={handleChange}
-                      className={`input-field ${errors.apellido ? 'input-error' : ''}`}
-                      placeholder="Tu apellido"
-                    />
-                    {errors.apellido && <p className="text-red-500 text-sm mt-1">{errors.apellido}</p>}
-                  </div>
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            {/* Left Column - Form Fields */}
+            <div className="space-y-10">
+              <FormSection title="Datos Personales" icon="bi-person-badge">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <FormInput
+                    label="Nombre"
+                    name="nombre"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    error={errors.nombre}
+                    placeholder="Tu nombre"
+                    icon="bi-person"
+                    required
+                  />
+                  <FormInput
+                    label="Apellido"
+                    name="apellido"
+                    value={formData.apellido}
+                    onChange={handleChange}
+                    error={errors.apellido}
+                    placeholder="Tu apellido"
+                    icon="bi-person"
+                    required
+                  />
                 </div>
-
-                <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="label">Correo Electrónico</label>
-                    <input
-                      type="email"
-                      name="correo"
-                      value={formData.correo}
-                      onChange={handleChange}
-                      className={`input-field ${errors.correo ? 'input-error' : ''}`}
-                      placeholder="tu@email.com"
-                    />
-                    {errors.correo && <p className="text-red-500 text-sm mt-1">{errors.correo}</p>}
-                  </div>
-                  
-                  <div>
-                    <label className="label">Teléfono</label>
-                    <input
-                      type="tel"
-                      name="telefono"
-                      value={formData.telefono}
-                      onChange={handleChange}
-                      className={`input-field ${errors.telefono ? 'input-error' : ''}`}
-                      placeholder="+58 XXX XXX XXXX"
-                    />
-                    {errors.telefono && <p className="text-red-500 text-sm mt-1">{errors.telefono}</p>}
-                  </div>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <FormInput
+                    label="Correo Electrónico"
+                    name="email"
+                    type="email"
+                    value={formData.correo}
+                    onChange={(e) => {
+                      handleChange(e)
+                      setFormData(prev => ({ ...prev, correo: e.target.value }))
+                    }}
+                    error={errors.correo}
+                    placeholder="nombre@gmail.com"
+                    icon="bi-envelope"
+                    required
+                  />
+                  <FormInput
+                    label="Teléfono"
+                    name="telefono"
+                    type="tel"
+                    value={formData.telefono}
+                    onChange={handleChange}
+                    error={errors.telefono}
+                    placeholder="+58 4XX XXXXXXX"
+                    icon="bi-telephone"
+                    required
+                  />
                 </div>
-              </div>
+              </FormSection>
 
-              {/* Service Selection */}
-              <div className="card p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                  <i className="bi bi-briefcase text-primary-500"></i>
-                  Selecciona el Servicio
-                </h2>
-                
+              <FormSection title="Detalles del Servicio" icon="bi-stars">
                 <div className="grid sm:grid-cols-3 gap-4">
                   {services.map((service) => (
                     <label
                       key={service.id}
-                      className={`relative cursor-pointer p-4 rounded-xl border-2 transition-all ${
+                      className={`relative cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                         formData.servicio === service.id
-                          ? 'border-primary-500 bg-primary-50'
-                          : 'border-gray-200 hover:border-primary-200'
+                          ? 'border-primary-500 bg-primary-500/5 shadow-lg shadow-primary-500/10'
+                          : 'border-surface-800 bg-surface-900/50 hover:border-surface-700'
                       }`}
                     >
                       <input
@@ -277,79 +258,70 @@ export default function ServiceRequest() {
                         checked={formData.servicio === service.id}
                         onChange={handleChange}
                         className="sr-only"
+                        required
                       />
                       <div className="text-center">
-                        <i className={`bi ${service.icon} text-2xl text-primary-500 mb-2 block`}></i>
-                        <span className="text-sm font-medium">{service.label}</span>
+                        <i className={`bi ${service.icon} text-3xl mb-3 block ${
+                          formData.servicio === service.id ? 'text-primary-500' : 'text-surface-500'
+                        }`}></i>
+                        <span className={`text-sm font-bold block ${
+                          formData.servicio === service.id ? 'text-white' : 'text-surface-400'
+                        }`}>{service.label}</span>
                       </div>
                       {formData.servicio === service.id && (
-                        <div className="absolute top-2 right-2 w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center">
-                          <i className="bi bi-check text-white text-xs"></i>
+                        <div className="absolute top-2 right-2 w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center animate-scale-in">
+                          <i className="bi bi-check text-white text-lg"></i>
                         </div>
                       )}
                     </label>
                   ))}
                 </div>
-                {errors.servicio && <p className="text-red-500 text-sm mt-2">{errors.servicio}</p>}
-              </div>
+                {errors.servicio && <p className="text-red-500 text-xs font-medium ml-1">{errors.servicio}</p>}
 
-              {/* Date & Time */}
-              <div className="card p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                  <i className="bi bi-calendar-event text-primary-500"></i>
-                  Fecha y Hora
-                </h2>
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="label">Fecha del Servicio</label>
-                    <input
-                      type="date"
-                      id="fecha"
-                      name="fecha"
-                      value={formData.fecha}
-                      onChange={handleChange}
-                      className={`input-field ${errors.fecha ? 'input-error' : ''}`}
-                    />
-                    {errors.fecha && <p className="text-red-500 text-sm mt-1">{errors.fecha}</p>}
-                  </div>
-                  
-                  <div>
-                    <label className="label">Hora</label>
-                    <input
-                      type="time"
-                      name="hora"
-                      value={formData.hora}
-                      onChange={handleChange}
-                      className={`input-field ${errors.hora ? 'input-error' : ''}`}
-                    />
-                    {errors.hora && <p className="text-red-500 text-sm mt-1">{errors.hora}</p>}
-                  </div>
+                <div className="grid sm:grid-cols-2 gap-6 mt-8 pt-8 border-t border-white/5">
+                  <FormInput
+                    label="Fecha Preferida"
+                    id="fecha"
+                    name="fecha"
+                    type="date"
+                    value={formData.fecha}
+                    onChange={handleChange}
+                    error={errors.fecha}
+                    icon="bi-calendar-date"
+                    required
+                  />
+                  <FormInput
+                    label="Hora"
+                    name="hora"
+                    type="time"
+                    value={formData.hora}
+                    onChange={handleChange}
+                    error={errors.hora}
+                    icon="bi-clock"
+                    required
+                  />
                 </div>
-              </div>
+              </FormSection>
             </div>
 
-            {/* Right Column - Map */}
-            <div className="space-y-6">
-              <div className="card p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-geo-alt text-primary-500"></i>
-                  Ubicación del Servicio
-                </h2>
-                
-                <p className="text-sm text-gray-500 mb-4">
-                  Haz clic en el mapa para seleccionar la ubicación exacta donde deseas el servicio.
+            {/* Right Column - Map and Address */}
+            <div className="space-y-10 lg:sticky lg:top-32">
+              <FormSection title="Ubicación" icon="bi-geo-alt">
+                <p className="text-sm text-surface-500">
+                  Selecciona en el mapa el punto exacto para la prestación del servicio.
                 </p>
                 
-                <div className="h-80 rounded-xl overflow-hidden mb-4 border border-gray-200">
+                <div className="h-96 rounded-3xl overflow-hidden border-2 border-surface-800 shadow-2xl relative">
                   <MapContainer
                     center={DEFAULT_CENTER}
                     zoom={13}
                     style={{ height: '100%', width: '100%' }}
+                    className="z-10"
                   >
                     <TileLayer
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      className="dark-map-tiles"
                     />
                     <Marker
                       position={mapCenter}
@@ -365,37 +337,52 @@ export default function ServiceRequest() {
                     <MapClickHandler onLocationSelect={handleLocationSelect} />
                     <RecenterMap center={mapCenter} />
                   </MapContainer>
+                  
+                  {/* Location Controls */}
+                  <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleDetectLocation()
+                      }}
+                      className={`p-3 rounded-xl backdrop-blur-md border border-white/10 shadow-xl transition-all ${
+                        isLocating 
+                          ? 'bg-primary-500 text-white animate-pulse' 
+                          : 'bg-surface-900/80 text-primary-500 hover:bg-primary-500 hover:text-white'
+                      }`}
+                      title="Detectar mi ubicación"
+                    >
+                      <i className={`bi ${isLocating ? 'bi-arrow-repeat' : 'bi-geo-alt-fill'} text-xl`}></i>
+                    </button>
+                  </div>
+
+                  {/* Map overlay for premium feel */}
+                  <div className="absolute inset-0 pointer-events-none border-[12px] border-surface-900/30 rounded-3xl z-20"></div>
                 </div>
 
-                <div className="p-4 bg-gray-50 rounded-xl">
-                  <div className="flex items-start gap-3">
-                    <i className="bi bi-geo text-primary-500 mt-1"></i>
-                    <div>
-                      <p className="text-sm font-medium text-gray-700">Dirección seleccionada:</p>
-                      <p className="text-sm text-gray-600">{address}</p>
-                    </div>
+                <div className="p-6 bg-surface-900/50 rounded-2xl border border-white/5 flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center text-xl shrink-0">
+                    <i className="bi bi-geo"></i>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-surface-500 uppercase tracking-widest mb-1">Dirección Detectada</p>
+                    <p className="text-white font-medium leading-snug">{address}</p>
+                    {/* Hidden address input for form submission */}
+                    <input type="hidden" name="direccion_mapa" value={address} />
                   </div>
                 </div>
-              </div>
+              </FormSection>
 
-              {/* Submit Button */}
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-primary w-full py-4 text-lg"
+                size="lg"
+                className="w-full py-8 text-xl font-bold shadow-xl shadow-primary-500/10"
+                icon={isSubmitting ? "bi-hourglass-split" : "bi-send-check"}
               >
-                {isSubmitting ? (
-                  <>
-                    <i className="bi bi-hourglass-split animate-spin mr-2"></i>
-                    Enviando...
-                  </>
-                ) : (
-                  <>
-                    <i className="bi bi-send mr-2"></i>
-                    Solicitar Servicio
-                  </>
-                )}
-              </button>
+                {isSubmitting ? 'Procesando...' : 'Confirmar Solicitud'}
+              </Button>
             </div>
           </div>
         </form>

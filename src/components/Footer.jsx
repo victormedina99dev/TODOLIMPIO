@@ -1,27 +1,13 @@
 import { Link } from 'react-router-dom'
+import { brand } from '../constants'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    {
-      name: 'Instagram',
-      url: 'https://www.instagram.com/todolimpio.venezuela',
-      icon: 'bi-instagram',
-      color: 'hover:text-pink-500'
-    },
-    {
-      name: 'WhatsApp',
-      url: 'https://wa.me/message/U7VEZNXGTCZ3H1',
-      icon: 'bi-whatsapp',
-      color: 'hover:text-green-500'
-    },
-    {
-      name: 'Facebook',
-      url: 'https://www.facebook.com/todolimpio.vnzla',
-      icon: 'bi-facebook',
-      color: 'hover:text-blue-600'
-    }
+    { name: 'Instagram', url: 'https://www.instagram.com/todolimpio.venezuela', icon: 'bi-instagram' },
+    { name: 'WhatsApp', url: 'https://wa.me/message/U7VEZNXGTCZ3H1', icon: 'bi-whatsapp' },
+    { name: 'Facebook', url: 'https://www.facebook.com/todolimpio.vnzla', icon: 'bi-facebook' }
   ]
 
   const quickLinks = [
@@ -31,23 +17,21 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900 text-gray-300 mt-auto">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-surface-950 text-surface-400 pt-24 pb-12 border-t border-white/5 transition-colors duration-500">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
           {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-                <i className="bi bi-droplet-fill text-white text-xl"></i>
+          <div className="md:col-span-5">
+            <Link to="/" className="flex items-center gap-3 mb-8 group">
+              <div className="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain" />
               </div>
-              <span className="text-2xl font-display font-bold text-white">
-                TodoLimpio
+              <span className="text-2xl font-display font-extrabold tracking-tight text-white">
+                {brand.name}
               </span>
-            </div>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Tu aliado en el cuidado y mantenimiento de tus espacios. 
-              Transformamos y mantenemos tus hogares y oficinas con servicios 
-              de limpieza y jardinería de la más alta calidad.
+            </Link>
+            <p className="text-lg leading-relaxed mb-10 max-w-sm">
+              {brand.description}. Elevando el estándar de limpieza y cuidado en cada espacio venezolano.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
@@ -56,26 +40,26 @@ export default function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center transition-all hover:bg-primary-500 ${social.color}`}
+                  className="w-12 h-12 rounded-2xl bg-surface-900 border border-white/5 flex items-center justify-center text-white transition-all hover:bg-primary-500 hover:scale-110 shadow-xl"
                   aria-label={social.name}
                 >
-                  <i className={`bi ${social.icon} text-lg`}></i>
+                  <i className={`bi ${social.icon} text-xl`}></i>
                 </a>
               ))}
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Enlaces Rápidos</h4>
-            <ul className="space-y-3">
+          <div className="md:col-span-3">
+            <h4 className="text-white font-bold text-lg mb-8 uppercase tracking-widest">Navegación</h4>
+            <ul className="space-y-4">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="footer-link flex items-center gap-2"
+                    className="hover:text-primary-400 transition-colors font-medium flex items-center gap-2 group"
                   >
-                    <i className="bi bi-chevron-right text-xs text-primary-400"></i>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {link.label}
                   </Link>
                 </li>
@@ -84,45 +68,34 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Contacto</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <i className="bi bi-geo-alt text-primary-400 mt-1"></i>
-                <span>Barquisimeto, Lara<br />Venezuela</span>
-              </li>
-              <li>
-                <a
-                  href="mailto:todolimpiovenezuela@gmail.com"
-                  className="footer-link flex items-center gap-2"
-                >
-                  <i className="bi bi-envelope text-primary-400"></i>
-                  todolimpiovenezuela@gmail.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+58XXXXXXXXXX"
-                  className="footer-link flex items-center gap-2"
-                >
-                  <i className="bi bi-telephone text-primary-400"></i>
-                  +58 (XXX) XXX-XXXX
-                </a>
-              </li>
-            </ul>
+          <div className="md:col-span-4">
+            <h4 className="text-white font-bold text-lg mb-8 uppercase tracking-widest">Contacto</h4>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-surface-900 border border-white/5 flex items-center justify-center text-primary-400">
+                  <i className="bi bi-geo-alt"></i>
+                </div>
+                <span className="font-medium text-white">Barquisimeto, Lara<br /><span className="text-surface-500">Venezuela</span></span>
+              </div>
+              <a href="mailto:todolimpiovenezuela@gmail.com" className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-surface-900 border border-white/5 flex items-center justify-center text-primary-400 group-hover:bg-primary-500 group-hover:text-white transition-all">
+                  <i className="bi bi-envelope"></i>
+                </div>
+                <span className="font-medium group-hover:text-white transition-colors">todolimpiovenezuela@gmail.com</span>
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-800 mt-10 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-500">
-              © {currentYear} TodoLimpio. Todos los derechos reservados.
-            </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="footer-link">Términos de Servicio</a>
-              <a href="#" className="footer-link">Política de Privacidad</a>
-            </div>
+        <div className="pt-12 border-t border-white/5 flex flex-col md:row justify-between items-center gap-8">
+          <p className="text-sm font-medium tracking-wide">
+            © {currentYear} {brand.name}. Todos los derechos reservados.
+          </p>
+          <div className="flex gap-10 text-xs font-bold uppercase tracking-widest">
+            <a href="#" className="hover:text-white transition-colors">Términos</a>
+            <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+            <a href="#" className="hover:text-white transition-colors">Cookies</a>
           </div>
         </div>
       </div>
