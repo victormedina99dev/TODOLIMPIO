@@ -29,8 +29,8 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'py-4 bg-white/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-surface-200 dark:border-white/10 shadow-2xl'
+        isScrolled || isMobileMenuOpen
+          ? 'py-4 bg-white dark:bg-surface-950 border-b border-surface-200 dark:border-white/10 shadow-2xl'
           : 'py-6 bg-transparent'
       }`}
     >
@@ -97,9 +97,11 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 top-[73px] bg-surface-950/95 backdrop-blur-2xl md:hidden transition-all duration-500 z-40 ${
+        className={`fixed inset-0 md:hidden transition-all duration-500 z-40 ${
           isMobileMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'
-        }`}
+        } ${
+          isScrolled || isMobileMenuOpen ? 'top-20' : 'top-24'
+        } bg-white dark:bg-surface-950`}
       >
         <nav className="container mx-auto px-6 py-10 flex flex-col gap-6">
           {navLinks.map((link) => (
@@ -110,7 +112,7 @@ export default function Header() {
               className={`text-2xl font-display font-bold p-4 rounded-2xl transition-all ${
                 isActive(link.path)
                   ? 'bg-primary-500/10 text-primary-500 border border-primary-500/20'
-                  : 'text-white hover:bg-white/5'
+                  : 'text-surface-900 dark:text-white hover:bg-surface-100 dark:hover:bg-white/5'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -130,7 +132,7 @@ export default function Header() {
                     className="w-12 h-12 rounded-xl border-2 border-primary-500/20"
                   />
                   <div className="overflow-hidden">
-                    <p className="font-bold text-white truncate">{user.displayName}</p>
+                    <p className="font-bold text-surface-900 dark:text-white truncate">{user.displayName}</p>
                     <p className="text-xs text-surface-500 truncate">{user.email}</p>
                   </div>
                 </div>

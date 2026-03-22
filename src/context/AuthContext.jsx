@@ -21,6 +21,14 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
 
+// Validación de configuración para desarrollo
+if (import.meta.env.DEV) {
+  const isConfigDefault = firebaseConfig.apiKey === "YOUR_API_KEY" || firebaseConfig.apiKey === "tu_api_key_aqui";
+  if (isConfigDefault) {
+    console.error("⚠️ Firebase Error: Las credenciales en el archivo .env no están configuradas.");
+  }
+}
+
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
@@ -42,7 +50,24 @@ export function AuthProvider({ children }) {
       const result = await signInWithPopup(auth, googleProvider)
       return result.user
     } catch (error) {
-      console.error('Error al iniciar sesión:', error)
+      let errorMessage = 'Error al iniciar sesión con Google';
+      
+      switch (error.code) {
+        case 'auth/unauthorized-domain':
+          errorMessage = 'Este dominio no está autorizado en la consola de Firebase.';
+          break;
+        case 'auth/popup-closed-by-user':
+          errorMessage = 'El usuario cerró la ventana de autenticación.';
+          break;
+        case 'auth/configuration-not-found':
+          errorMessage = 'Falta la configuración de autenticación de Google en Firebase.';
+          break;
+        default:
+          errorMessage = error.message;
+      }
+
+      console.error('Detalle del error:', error.code, error.message);
+      alert(errorMessage); // Feedback inmediato al usuario
       throw error
     } finally {
       setLoading(false)
