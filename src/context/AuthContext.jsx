@@ -9,25 +9,28 @@ import {
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "YOUR_PROJECT.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "YOUR_PROJECT.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "YOUR_SENDER_ID",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "YOUR_APP_ID"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+}
+
+// Validación de configuración
+const missingVars = Object.entries(firebaseConfig)
+  .filter(([_, value]) => !value || value.includes('YOUR_') || value.includes('tu_api_key'))
+  .map(([key]) => key);
+
+if (missingVars.length > 0) {
+  const errorMsg = `⚠️ Firebase Error: Faltan las siguientes variables de entorno: ${missingVars.join(', ')}. 
+                    Asegúrate de configurarlas en tu archivo .env (local) o en el panel de Netlify (producción).`;
+  console.error(errorMsg);
 }
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
-
-// Validación de configuración para desarrollo
-if (import.meta.env.DEV) {
-  const isConfigDefault = firebaseConfig.apiKey === "YOUR_API_KEY" || firebaseConfig.apiKey === "tu_api_key_aqui";
-  if (isConfigDefault) {
-    console.error("⚠️ Firebase Error: Las credenciales en el archivo .env no están configuradas.");
-  }
-}
 
 const AuthContext = createContext(null)
 
