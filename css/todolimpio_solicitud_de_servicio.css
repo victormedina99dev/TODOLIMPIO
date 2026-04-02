@@ -1,0 +1,382 @@
+h1{
+    color: white;
+    
+}
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+header{
+    display: flex;
+    min-height: 70px;
+    justify-content: space-between;
+    background-color: rgb(22, 155, 164);
+    color: white;
+    align-items: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+    
+
+
+nav a{
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+nav a:hover{
+    color: black;
+}
+
+@media (max-width:700px){
+    
+    /* 1. 🛑 SOLUCIÓN DESBORDAMIENTO HORIZONTAL GENERAL 🛑 */
+    /* Asegura que el cuerpo y los elementos principales no fuerzen scroll horizontal */
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Asegura que los contenedores de las casillas (.col-md-6) no salgan del viewport */
+    .col-md-6 {
+        width: 100% !important; 
+        padding-left: 15px !important; 
+        padding-right: 15px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+
+    /* 2. 📝 SOLUCIÓN DESBORDE DE CASILLAS DE LLENADO 📝 */
+    /* Sobreescribe el 'width: 300px' de las reglas generales, forzando 100% del ancho */
+    input[type="text"], 
+    input[type="email"], 
+    input[type="tel"], 
+    #miNumero, 
+    textarea, 
+    .form-select {
+        /* La clave es el !important para sobreescribir el width: 300px de la regla general */
+        width: 100% !important; 
+        /* Asegura que el padding se incluya en el 100% */
+        box-sizing: border-box !important; 
+        /* Elimina cualquier margen lateral extra */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* 3. Ajustes de fieldsets y estructura */
+    .align-fieldsets {
+        display: block; /* Obliga a los fieldsets a apilarse verticalmente */
+    }
+    
+    /* Nos aseguramos de que las columnas de Bootstrap también se comporten como bloques */
+    .align-fieldsets .col-md-6 {
+        display: block; 
+        margin-bottom: 20px;
+    }
+
+    /* Asegurar que los fieldsets fluyan sin altura forzada */
+    .align-fieldsets fieldset {
+        height: auto;
+    }
+    
+    /* 4. SOLUCIÓN DESBORDE DE TEXTO (Etiquetas/Spans) */
+    /* Permite que el texto de labels/legend se rompa en varias líneas en vez de forzar una sola */
+    legend, label, span, td {
+        white-space: normal !important; /* Sobreescribe el white-space: nowrap que causaba el desborde de texto */
+    }
+
+    /* 5. SOLUCIÓN DESBORDE DEL MAPA */
+    /* Define un alto visible y asegura que el mapa ocupe el 100% del ancho */
+    #map {
+        height: 250px !important; /* Altura fija para que el mapa sea visible en móvil */
+        width: 100% !important;
+        box-sizing: border-box; /* Asegura que padding y border no sumen más del 100% */
+    }
+}
+
+
+h2{
+    color:rgb(22,155,164);
+    text-align: center;
+}
+
+h3{
+    color:rgb(22,155,164);
+    text-align: center;
+}
+
+h4{
+    color:rgb(22,155,164);
+    text-align: center;
+}
+form{
+    color:rgb(22,155,164);
+    text-align: center;
+}
+a{
+    color: white;
+    
+}
+
+/* LA CAUSA DEL DESBORDE: ESTA REGLA GENERAL FUERZA 300PX, POR ESO SE NECESITÓ !important EN EL @media */
+input[type="text"]{
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    width: 300px; 
+}
+
+input[type="text"]::checkmark{
+    background-color: rgb(22, 155, 164);
+    box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.782);
+    border-color: white;
+}
+input[type="email"]{
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    width: 300px; /* LA CAUSA DEL DESBORDE */
+}
+input[type="tel"]{
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    width: 300px; /* LA CAUSA DEL DESBORDE */
+}
+
+
+input:hover[type="text"]::placeholder{
+    background-color: rgba(0, 0, 0, 0.094);
+    color: rgb(0, 0, 0);
+    
+    
+    
+}
+input:hover[type="email"]::placeholder{
+    background-color: rgba(0, 0, 0, 0.094);
+    color: rgb(0, 0, 0);
+    
+    
+}
+input:hover[type="tel"]::placeholder{
+    background-color: rgba(0, 0, 0, 0.094);
+    color: rgb(0, 0, 0);
+    
+    
+}
+
+
+
+input[type="time"]{
+    border-radius: 5px;
+    color: rgb(22,155,164);
+}
+
+input[type="date"]{
+    border-radius: 5px;
+    color: rgb(22,155,164);
+
+}
+
+.enviar_formulario {
+    background-color: rgb(22,155, 164);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.393);
+}
+
+.enviar_formulario:hover {
+    background-color: lightblue;
+    padding: 11px 21px; 
+    cursor: pointer;
+    color: black;
+}
+
+.enviar_formulario:active{
+    background-color: rgb(22, 155, 164);
+    box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.782);
+}
+
+.link_contacto{
+    display: block;   /* Convierte el link en un elemento de bloque */
+width: 200px;     /* Dale un ancho definido para que margin: auto funcione */
+margin: 0 auto;   /* Centra el elemento de bloque horizontalmente */
+padding: 10px;
+background-color: lightblue; /* Solo para visualización */
+text-align: center; /* Opcional: Centra el texto DENTRO del link si el ancho es mayor que el texto */
+text-decoration: none;
+color: #333;
+}
+
+.encabezado{
+
+text-align: center;
+display: flex;             /* Habilita Flexbox */
+align-items: center;       /* Alinea la imagen y el texto verticalmente al centro */
+gap: 10px;                 /* Crea un espacio de 20px entre la imagen y el texto */
+border: 0px solid #cccccc00;    /* Solo para visualizar el contenedor */
+padding: 10px;
+
+}
+.encabezado #photo_image1 {
+order: -1;                 /* ¡Aquí está el truco! Envía la imagen al principio del orden flexible */
+max-width: 110px;          /* Reduce el tamaño de la imagen (ajusta este valor) */
+height: auto;
+margin-right: auto;              /* Mantiene la proporción de la imagen */
+margin-left:0;
+}
+.encabezado #photo_image2 {
+order: 1;                 /* ¡Aquí está el truco! Envía la imagen al principio del orden flexible */
+max-width: 110px;          /* Reduce el tamaño de la imagen (ajusta este valor) */
+height: auto;
+margin-right: 0;              /* Mantiene la proporción de la imagen */
+margin-left:auto;
+}    
+
+
+body{
+    background-color: rgb(255, 255, 255);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+
+/* One radio button per line */
+label {
+    display: block;
+    cursor: pointer;
+    line-height: 2.5;
+}
+
+/* the basic, unchecked style */
+input[type="radio"] {
+    appearance: none;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border: 0.25em solid rgb(22,155,164)
+}
+
+[type="radio"]:focus  {
+    background: lightgreen;
+    border-color: white;
+    box-shadow: 0 0 0 3px rgb(22,155,164)
+}
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked  {
+    background: rgb(22,155,164);
+    border-color: white;
+    box-shadow: 0 0 0 3px rgb(22,155,164)
+}
+
+/* never forget focus styling */
+
+
+/* Nothing to see here. */
+
+li {
+    list-style-type: none;
+}
+
+fieldset {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 2px solid #169ba4;
+    background: #ffffff;
+}
+
+legend {
+    display: inline-block;
+    background: #169ba4;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 18px;
+    font-weight: bold;
+    white-space: nowrap; /* No permite saltos de línea */
+}
+legend, label, span, td {
+    white-space: nowrap;
+}
+
+input, textarea, select {
+    border: 2px solid #169ba4; /* Cambia el color y grosor del borde */
+}
+
+.form-select{
+    border-color: #169ba4;
+    text-align:center;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#miNumero{
+    border-color:#169ba4;
+    border-radius: 5px;
+    text-align:center;
+}
+
+.list-unstyled label {
+    display: block;
+    padding: 8px 0;
+    font-size: 1rem;
+}
+
+.align-fieldsets {
+    display: flex;
+    align-items: stretch;
+}
+
+.align-fieldsets .col-md-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.align-fieldsets fieldset {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fieldset-servicio {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.opciones-servicio label {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.opciones-servicio input[type="radio"] {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+
+/* Regla para asegurar que el texto de la dirección no se sale */
+#ubicacion-actual {
+    white-space: normal !important; /* Fuerza a que el texto salte de línea si es necesario */
+    word-wrap: break-word; /* Asegura que se rompan palabras largas si no caben */
+    text-align: left !important; /* Alineación a la izquierda para mejor lectura del texto largo */
+    padding: 0 5px; /* Pequeño espacio para que no choque con los bordes */
+}
